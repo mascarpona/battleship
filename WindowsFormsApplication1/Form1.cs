@@ -12,11 +12,19 @@ namespace WindowsFormsApplication1
 {
     public partial class Form1 : Form
     {
+        /*
+         0 - пустая клетка
+        -1 - клетка около корабля
+         1 - однопалубный корабль
+         2 - двухпалубный корабль
+         3 - трехпалубный корабль
+         4 - четырехпалубный корабль
+        */
         Label[,] computer; //игровое поле компьютера
         Label[,] user; //игровое поле пользователя
         Label[] resp1, numb1, resp2, numb2; //массивы букв и цифр
         char[] c = new char[] { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J' };
-        
+
         public Form1()
         {
             computer = new Label[10, 10];
@@ -118,6 +126,22 @@ namespace WindowsFormsApplication1
                 label4.Location = new Point(comboBox1.Location.X + 143, 543);
                 label4.Image = Image.FromFile(Application.StartupPath + @"\..\..\Resources\" + "1.png");
             }
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            button3.Enabled = true;
+            button4.Enabled = true;
+            button7.Enabled = true;
+            button6.Enabled = false;
+            button5.Enabled = false;
+            comboBox1.Enabled = true;
+            label1.Enabled = true;
+            label2.Enabled = true;
+            label3.Enabled = true;
+            label4.Enabled = true;
+            button3.Visible = true;
+            label6.Text = "Ready";
         }
 
     }
