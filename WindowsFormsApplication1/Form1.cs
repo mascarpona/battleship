@@ -12,9 +12,72 @@ namespace WindowsFormsApplication1
 {
     public partial class Form1 : Form
     {
+        Label[,] computer; //игровое поле компьютера
+        Label[,] user; //игровое поле пользователя
+        Label[] resp1, numb1, resp2, numb2; //массивы букв и цифр
+        char[] c = new char[] { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J' };
+        
         public Form1()
         {
+            computer = new Label[10, 10];
+            user = new Label[10, 10];
+            resp1 = new Label[10];
+            numb1 = new Label[10];
+            resp2 = new Label[10];
+            numb2 = new Label[10];
             InitializeComponent();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            comboBox1.Text = "vertical";
+            for (int j = 0; j < 10; ++j)
+            {
+                for (int i = 0; i < 10; ++i)
+                {
+                    user[i, j] = new Label();
+                    computer[i, j] = new Label();
+                    computer[i, j].Cursor = Cursors.Hand;
+                    user[i, j].Tag = 0;
+                    user[i, j].AutoSize = false;
+                    user[i, j].AllowDrop = true;
+                    user[i, j].Size = new Size(16, 16);
+                    user[i, j].Location = new Point(i * 17 + 330, j * 17 + 280);
+                    user[i, j].BackColor = Color.LightBlue;
+                    computer[i, j].BackColor = Color.LightBlue;
+                    this.Controls.Add(user[i, j]);
+                    computer[i, j].Tag = 0;
+                    computer[i, j].AutoSize = false;
+                    computer[i, j].AllowDrop = true;
+                    computer[i, j].Size = new Size(16, 16);
+                    computer[i, j].Location = new Point(i * 17 + 330, j * 17 + 50);
+                    this.Controls.Add(computer[i, j]);
+                }
+            }
+            for (int i = 0; i < 10; ++i)
+            {
+                resp1[i] = new Label();
+                resp2[i] = new Label();
+                resp1[i].AutoSize = true;
+                resp2[i].AutoSize = true;
+                resp1[i].Size = new Size(10, 10);
+                resp2[i].Size = new Size(10, 10);
+                resp2[i].Location = new Point(i * 17 + 330, 260);
+                resp1[i].Location = new Point(i * 17 + 330, 30);
+                numb1[i] = new Label();
+                numb2[i] = new Label();
+                numb1[i].AutoSize = true;
+                numb2[i].AutoSize = true;
+                numb1[i].Size = new Size(10, 10);
+                numb2[i].Size = new Size(10, 10);
+                numb1[i].Location = new Point(310, i * 17 + 52);
+                numb2[i].Location = new Point(310, i * 17 + 282);
+                numb1[i].Text = numb2[i].Text = Convert.ToString(i + 1);
+                resp1[i].Visible = resp2[i].Visible = numb1[i].Visible = numb2[i].Visible = true;
+                resp2[i].Text = resp1[i].Text = c[i].ToString();
+                this.Controls.AddRange(new Control[] { resp1[i], resp2[i], numb1[i], numb2[i] });
+
+            }
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)// разворачиваем корабли, грузим изображения
@@ -57,6 +120,5 @@ namespace WindowsFormsApplication1
             }
         }
 
-        
     }
 }

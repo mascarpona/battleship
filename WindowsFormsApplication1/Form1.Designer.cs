@@ -48,11 +48,11 @@
             this.label9 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
-
             // 
             // button7
             // 
             this.button7.BackColor = System.Drawing.Color.Red;
+            this.button7.Enabled = false;
             this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button7.ForeColor = System.Drawing.Color.WhiteSmoke;
@@ -66,6 +66,7 @@
             // button4
             // 
             this.button4.BackColor = System.Drawing.Color.GreenYellow;
+            this.button4.Enabled = false;
             this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button4.ForeColor = System.Drawing.SystemColors.ControlText;
@@ -79,6 +80,7 @@
             // button3
             // 
             this.button3.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.button3.Enabled = false;
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button3.ForeColor = System.Drawing.Color.GreenYellow;
             this.button3.Location = new System.Drawing.Point(72, 391);
@@ -115,17 +117,17 @@
             // comboBox1
             // 
             this.comboBox1.BackColor = System.Drawing.Color.MediumTurquoise;
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox1.Enabled = false;
             this.comboBox1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "vertical",
+            "horizontal"});
             this.comboBox1.Location = new System.Drawing.Point(659, 468);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(128, 21);
             this.comboBox1.TabIndex = 40;
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            //this.comboBox1.Enabled = false;
-            this.comboBox1.Items.AddRange(new object[] {
-            "вертикально",
-            "горизонтально"});
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // label1
@@ -180,6 +182,7 @@
             // 
             this.checkBox1.AutoSize = true;
             this.checkBox1.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.checkBox1.Enabled = false;
             this.checkBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBox1.ForeColor = System.Drawing.Color.MediumTurquoise;
             this.checkBox1.Location = new System.Drawing.Point(641, 159);
@@ -211,6 +214,7 @@
             this.label7.Size = new System.Drawing.Size(103, 20);
             this.label7.TabIndex = 47;
             this.label7.Text = "YOU TURN";
+            this.label7.Visible = false;
             // 
             // label6
             // 
@@ -273,8 +277,12 @@
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button7);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "SeaBattle";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
