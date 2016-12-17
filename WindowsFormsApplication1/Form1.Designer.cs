@@ -62,6 +62,7 @@
             this.button7.TabIndex = 1;
             this.button7.Text = "STOP";
             this.button7.UseVisualStyleBackColor = false;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
             // button4
             // 
@@ -76,6 +77,7 @@
             this.button4.TabIndex = 6;
             this.button4.Text = "START";
             this.button4.UseVisualStyleBackColor = false;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // button3
             // 
@@ -89,6 +91,7 @@
             this.button3.TabIndex = 37;
             this.button3.Text = "Clean";
             this.button3.UseVisualStyleBackColor = false;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button6
             // 

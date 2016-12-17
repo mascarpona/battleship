@@ -557,7 +557,6 @@ namespace WindowsFormsApplication1
             button7.Enabled = true;
             shoot_user = true; // игрок может стрелять
             label6.Text = "READY";
-            //label6.Location = new Point(computer[4, 0].Location.X + 20 - label6.Size.Width / 2, 60);
             Clear(); // чистим поля
             comboBox1.Enabled = false;
             label1.Enabled = false;
@@ -577,6 +576,70 @@ namespace WindowsFormsApplication1
                 //label6.Text = "Поле противника";
                 //label6.Location = new Point(computer[4, 0].Location.X + 20 - label6.Size.Width / 2, 60);
             }
+        }
+
+        private void button3_Click(object sender, EventArgs e)// пользователь чистит поле, корабли снова доступны
+        {
+            for (int j = 0; j < 10; ++j)
+            {
+                for (int i = 0; i < 10; ++i)
+                {
+                    user[i, j].Image = null;
+                    user[i, j].Tag = 0;
+                }
+            }
+            ship_3 = 2;
+            ship_2 = 3;
+            ship_1 = 4;
+            ship_4 = 1;
+            label1.Enabled = true;
+            label2.Enabled = true;
+            label3.Enabled = true;
+            label4.Enabled = true;
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if (!label1.Enabled && !label2.Enabled && !label3.Enabled && !label4.Enabled)
+            {
+                button3.Enabled = false;
+                button4.Enabled = false;
+                shoot_user = true; // игрок может стрелять
+                label6.Text = "Enemy";
+                label7.Visible = true;
+                //label6.Location = new Point(computer[4, 0].Location.X + 20 - label6.Size.Width / 2, 60);
+                label1.Enabled = false;
+                label2.Enabled = false;
+                label3.Enabled = false;
+                label4.Enabled = false; ;
+                comboBox1.Enabled = false;
+                button7.Text = "Finish";
+                checkBox1.Enabled = true;
+            }
+            else
+                MessageBox.Show("Not all of the ships are placed!", "Warning");
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            //label6.Text = "Поле противника";
+            //label6.Location = new Point(computer[4, 0].Location.X + 20 - label6.Size.Width / 2, 60);
+            checkBox1.Enabled = false;
+            button7.Enabled = false;
+            timer1.Stop();
+            label7.Text = "Your turn";
+            shoot_user = false;
+            button4.Enabled = false;
+            button5.Enabled = true;
+            button6.Enabled = true;
+            Clear(); // чистим поля, задаем значения
+            label7.Visible = false;
+            comboBox1.Enabled = false;
+            label1.Enabled = false;
+            label2.Enabled = false;
+            label3.Enabled = false;
+            label4.Enabled = false;
+            button3.Enabled = false;
         }
 
     }
