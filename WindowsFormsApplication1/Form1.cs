@@ -24,6 +24,15 @@ namespace WindowsFormsApplication1
         Label[,] user; //игровое поле пользователя
         Label[] resp1, numb1, resp2, numb2; //массивы букв и цифр
         char[] c = new char[] { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J' };
+        bool flag = false; //проверка на зажатие кнопки мыши
+        static int ship; //размерность корабля
+        int ship_4 = 1; //количество четырехпалубных кораблей
+        int ship_3 = 2; //количество трехпалубных кораблей
+        int ship_2 = 3; //количество двухпалубных кораблей
+        int ship_1 = 4; //количество однопалубных кораблей
+        int x0, y0; //координаты места, куда навели мышью на поле пользователя
+        static int x, y; //координаты предыдущего места корабля, чтобы его можно было стереть
+        static bool vertikal = true;
 
         public Form1()
         {
@@ -60,6 +69,8 @@ namespace WindowsFormsApplication1
                     computer[i, j].Size = new Size(16, 16);
                     computer[i, j].Location = new Point(i * 17 + 330, j * 17 + 50);
                     this.Controls.Add(computer[i, j]);
+                    user[i, j].DragOver += new DragEventHandler(my_DragOver);
+                    user[i, j].DragDrop += new DragEventHandler(label_drag);
                 }
             }
             for (int i = 0; i < 10; ++i)
@@ -88,7 +99,7 @@ namespace WindowsFormsApplication1
             }
         }
 
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)// разворачиваем корабли, грузим изображения
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e) //разворачиваем корабли, грузим изображения
         {
             if (comboBox1.SelectedIndex == 0)
             {
@@ -142,6 +153,282 @@ namespace WindowsFormsApplication1
             label4.Enabled = true;
             button3.Visible = true;
             label6.Text = "Ready";
+        }
+
+        void visible_ship() // досутпность и корл-во кораблей
+        {
+            if (ship == 3)// кол-во кораблей 3 - х парсных
+                ship_3--;
+            if (ship == 2)
+                ship_2--;
+            if (ship == 1)
+                ship_1--;
+            if (ship == 4)
+                ship_4--;
+            if (ship_1 == 0)
+                label4.Enabled = false;
+            if (ship_2 == 0)
+                label3.Enabled = false;
+            if (ship_3 == 0)
+                label2.Enabled = false;
+            if (ship_4 == 0)
+                label1.Enabled = false;
+        }
+
+        void download_image(Label[,] mas, int count_ship, bool fl) // загрузка картинок вертикальное/горизрнтальное отображение
+        {
+            int im = count_ship; //размерность корабля
+            if (fl)// вертикально
+            {
+                for (int j = y0; j < y0 + count_ship; ++j)
+                {
+                    switch (count_ship)
+                    {
+                        case 4:
+                            mas[x0, j].Image = Image.FromFile(Application.StartupPath + @"\..\..\Resources\4_\" + count_ship.ToString() + "_" + im.ToString() + ".png");
+                            im--; break;
+                        case 3:
+                            mas[x0, j].Image = Image.FromFile(Application.StartupPath + @"\..\..\Resources\3_\" + count_ship.ToString() + "_" + im.ToString() + ".png");
+                            im--; break;
+                        case 2:
+                            mas[x0, j].Image = Image.FromFile(Application.StartupPath + @"\..\..\Resources\2_\" + count_ship.ToString() + "_" + im.ToString() + ".png");
+                            im--; break;
+                        case 1:
+                            mas[x0, j].Image = Image.FromFile(Application.StartupPath + @"\..\..\Resources\" + "1_.png");
+                            break;
+                        default: break;
+                    }
+                }
+            }
+            else // горизонтально
+            {
+                for (int i = x0; i < x0 + count_ship; ++i)
+                {
+                    switch (count_ship)
+                    {
+                        case 4:
+                            mas[i, y0].Image = Image.FromFile(Application.StartupPath + @"\..\..\Resources\4\" + count_ship.ToString() + "_" + im.ToString() + ".png");
+                            im--; break;
+                        case 3:
+                            mas[i, y0].Image = Image.FromFile(Application.StartupPath + @"\..\..\Resources\3\" + count_ship.ToString() + "_" + im.ToString() + ".png");
+                            im--; break;
+                        case 2:
+                            mas[i, y0].Image = Image.FromFile(Application.StartupPath + @"\..\..\Resources\2\" + count_ship.ToString() + "_" + im.ToString() + ".png");
+                            im--; break;
+                        case 1:
+                            mas[i, y0].Image = Image.FromFile(Application.StartupPath + @"\..\..\Resources\" + "1.png");
+                            break;
+                    }
+                }
+            }
+        }
+
+        private void label_drag(object sender, DragEventArgs e) // загрузка картинок, задание значения в поле tag
+        {
+            if (comboBox1.SelectedIndex == 0)// вертикально
+            {
+                download_image(user, ship, true);// загрузка картинок
+                buffer_zone(user, x0 - 1, x0 + 1, y0 - 1, y0 + ship, -1);
+                for (int j = y0; j < y0 + ship; ++j)
+                {
+                    user[x0, j].Tag = ship;
+                }
+                visible_ship(); //  кол-во кораблей и их доступность
+            }
+            else // если горизонт.
+            {
+                download_image(user, ship, false);
+                buffer_zone(user, x0 - 1, x0 + ship, y0 - 1, y0 + 1, -1);
+                for (int i = x0; i < x0 + ship; ++i)
+                {
+                    user[i, y0].Tag = ship;
+                }
+                visible_ship();
+            }
+        }
+
+        private void my_DragOver(object sender, DragEventArgs e)
+        {
+            // поиск места , над какой клеткой находится указатель мыши
+            Point loc = location(sender, user);
+            x0 = loc.X; y0 = loc.Y;
+            if (comboBox1.SelectedIndex == 0)
+            {
+                if (vertikal)
+                {
+                    x = x0; y = y0;
+                    vertikal = false;
+                }
+                int k = 0; // кол-во клеток не задействованных 
+                if (y0 + ship <= 10 && (int)user[x0, y0].Tag == 0)
+                {
+                    for (int j = y0; j < y0 + ship; ++j)
+                    {
+                        if (Convert.ToInt32(user[x0, j].Tag) == 0) k++;
+                    }
+                    if (k == ship) // если место поустое
+                    {
+                        if (x == x0 && y == y0) // если в фокусе другая клетка, чистим предыдущий корабль
+                        {
+                            download_image(user, ship, true);
+                            e.Effect = DragDropEffects.Copy;
+                        }
+                        else
+                        {
+                            try
+                            {
+                                vertikal = true;
+                                e.Effect = DragDropEffects.None;
+                                for (int j = y; j < y + ship; ++j)
+                                {
+                                    if (Convert.ToInt32(user[x, j].Tag) == 0)
+                                        user[x, j].Image = null;
+                                }
+                            }
+                            catch (IndexOutOfRangeException) { }
+                        }
+                    }
+                    else
+                    {
+                        e.Effect = DragDropEffects.None;
+                        try
+                        {
+                            for (int j = y; j < y + ship; ++j)
+                            {
+                                if (Convert.ToInt32(user[x, j].Tag) == 0)
+                                    user[x, j].Image = null;
+                            }
+                        }
+                        catch (IndexOutOfRangeException) { }
+                    }
+                }
+                else
+                    e.Effect = DragDropEffects.None;
+            }
+            // горизоньально
+            ////////////////////////////////////////////////
+            else
+            {
+                if (vertikal)
+                {
+                    x = x0; y = y0;
+                    vertikal = false;
+                }
+                int k = 0; // кол-во клеток не задействованных 
+                if (x0 + ship <= 10 && (int)user[x0, y0].Tag == 0)
+                {
+                    for (int i = x0; i < x0 + ship; ++i)
+                    {
+                        if (Convert.ToInt32(user[i, y0].Tag) == 0) k++;
+                    }
+                    if (k == ship) // если место поустое
+                    {
+                        if (x == x0 && y == y0) // если в фокусе другая клетка, чистим предыдущий корабль
+                        {
+                            download_image(user, ship, false);
+                            e.Effect = DragDropEffects.Copy;
+                        }
+                        else
+                        {
+                            try
+                            {
+                                vertikal = true;
+                                e.Effect = DragDropEffects.None;
+                                for (int i = x; i < x + ship; ++i)
+                                {
+                                    if (Convert.ToInt32(user[i, y].Tag) == 0)
+                                        user[i, y].Image = null;
+                                }
+
+                            }
+                            catch (IndexOutOfRangeException) { }
+
+                        }
+                    }
+                    else
+                    {
+                        e.Effect = DragDropEffects.None;
+                        try
+                        {
+                            for (int i = x; i < x + ship; ++i)
+                            {
+                                if (Convert.ToInt32(user[i, y].Tag) == 0)
+                                    user[i, y].Image = null;
+                            }
+                        }
+                        catch (IndexOutOfRangeException) { }
+                    }
+                }
+                else
+                    e.Effect = DragDropEffects.None;
+            }
+        }
+
+        private Point location(object sender, Label[,] mas) // возращем место, где пользователь кликнул
+        {
+            Point place = new Point();
+            bool click = false; // клик на клекте , поиск места где кликнули
+            for (int j = 0; j < 10; ++j)
+            {
+                for (int i = 0; i < 10; ++i)
+                {
+                    if (mas[i, j] == sender)
+                    {
+                        place.X = i; place.Y = j;
+                        click = true;
+                        break;
+                    }
+                }
+                if (click) break;
+            }
+            return place;
+        }
+
+        void buffer_zone(Label[,] mas, int n0, int n1, int m0, int m1, int value) // задаем значение около кораблей 
+        {
+            for (int j = m0; j <= m1; ++j)
+            {
+                for (int i = n0; i <= n1; ++i)
+                {
+                    try
+                    {
+                        mas[i, j].Tag = value;//значение в клекте, -1 и -2 может быть
+                    }
+                    catch (IndexOutOfRangeException) { }
+                }
+            }
+        }
+
+        private void label1_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+                flag = true;
+        }
+
+        private void label1_MouseMove(object sender, MouseEventArgs e)
+        {
+            Label my = (Label)sender;
+            if (flag)
+            {
+                ship = Convert.ToInt32(my.Tag);
+                my.DoDragDrop(my, DragDropEffects.Copy);
+                flag = false;
+                // если курсор вышел за границы поля, чистим клетки
+                for (int j = 0; j < 10; ++j)
+                {
+                    for (int i = 0; i < 10; ++i)
+                    {
+                        if ((int)user[i, j].Tag == 0) user[i, j].Image = null;
+                    }
+                }
+            }
+
+        }
+
+        private void label1_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+                flag = false;
         }
 
     }

@@ -62,6 +62,7 @@
             this.button7.TabIndex = 1;
             this.button7.Text = "STOP";
             this.button7.UseVisualStyleBackColor = false;
+            //this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
             // button4
             // 
@@ -76,6 +77,7 @@
             this.button4.TabIndex = 6;
             this.button4.Text = "START";
             this.button4.UseVisualStyleBackColor = false;
+            //this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // button3
             // 
@@ -89,6 +91,7 @@
             this.button3.TabIndex = 37;
             this.button3.Text = "Clean";
             this.button3.UseVisualStyleBackColor = false;
+            //this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button6
             // 
@@ -114,6 +117,7 @@
             this.button5.TabIndex = 39;
             this.button5.Text = "Random";
             this.button5.UseVisualStyleBackColor = false;
+            //this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // comboBox1
             // 
@@ -142,6 +146,9 @@
             this.label1.Size = new System.Drawing.Size(80, 20);
             this.label1.TabIndex = 41;
             this.label1.Tag = "4";
+            this.label1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.label1_MouseDown);
+            this.label1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.label1_MouseMove);
+            this.label1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.label1_MouseUp);
             // 
             // label2
             // 
@@ -154,6 +161,9 @@
             this.label2.Size = new System.Drawing.Size(57, 20);
             this.label2.TabIndex = 42;
             this.label2.Tag = "3";
+            this.label2.MouseDown += new System.Windows.Forms.MouseEventHandler(this.label1_MouseDown);
+            this.label2.MouseMove += new System.Windows.Forms.MouseEventHandler(this.label1_MouseMove);
+            this.label2.MouseUp += new System.Windows.Forms.MouseEventHandler(this.label1_MouseUp);
             // 
             // label3
             // 
@@ -166,6 +176,9 @@
             this.label3.Size = new System.Drawing.Size(40, 20);
             this.label3.TabIndex = 43;
             this.label3.Tag = "2";
+            this.label3.MouseDown += new System.Windows.Forms.MouseEventHandler(this.label1_MouseDown);
+            this.label3.MouseMove += new System.Windows.Forms.MouseEventHandler(this.label1_MouseMove);
+            this.label3.MouseUp += new System.Windows.Forms.MouseEventHandler(this.label1_MouseUp);
             // 
             // label4
             // 
@@ -178,6 +191,9 @@
             this.label4.Size = new System.Drawing.Size(20, 20);
             this.label4.TabIndex = 44;
             this.label4.Tag = "1";
+            this.label4.MouseDown += new System.Windows.Forms.MouseEventHandler(this.label1_MouseDown);
+            this.label4.MouseMove += new System.Windows.Forms.MouseEventHandler(this.label1_MouseMove);
+            this.label4.MouseUp += new System.Windows.Forms.MouseEventHandler(this.label1_MouseUp);
             // 
             // checkBox1
             // 
@@ -192,6 +208,7 @@
             this.checkBox1.TabIndex = 45;
             this.checkBox1.Text = "Zone of Silense";
             this.checkBox1.UseVisualStyleBackColor = false;
+            //this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // label8
             // 
