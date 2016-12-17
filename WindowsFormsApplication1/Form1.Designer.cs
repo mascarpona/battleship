@@ -114,6 +114,7 @@
             this.button5.TabIndex = 39;
             this.button5.Text = "Random";
             this.button5.UseVisualStyleBackColor = false;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // comboBox1
             // 
@@ -204,7 +205,7 @@
             this.checkBox1.TabIndex = 45;
             this.checkBox1.Text = "Zone of Silense";
             this.checkBox1.UseVisualStyleBackColor = false;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            //this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // label8
             // 
