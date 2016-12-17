@@ -30,7 +30,7 @@ namespace WindowsFormsApplication1
         int ship_3 = 2; //количество трехпалубных кораблей
         int ship_2 = 3; //количество двухпалубных кораблей
         int ship_1 = 4; //количество однопалубных кораблей
-        int x0, y0; //координаты места, куда навели мышью на поле пользователя
+        int x0, y0; //координаты места, куда навели мышь на поле пользователя
         static int x, y; //координаты предыдущего места корабля, чтобы его можно было стереть
         static bool vertikal = true;
 
@@ -99,7 +99,7 @@ namespace WindowsFormsApplication1
             }
         }
 
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e) //разворачиваем корабли, грузим изображения
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e) //разворачиваем корабли и загружаем изображение
         {
             if (comboBox1.SelectedIndex == 0)
             {
@@ -155,9 +155,9 @@ namespace WindowsFormsApplication1
             label6.Text = "Ready";
         }
 
-        void visible_ship() // досутпность и корл-во кораблей
+        void visible_ship() //количество кораблей и их доступность
         {
-            if (ship == 3)// кол-во кораблей 3 - х парсных
+            if (ship == 3)//количество 3-х палубных кораблей
                 ship_3--;
             if (ship == 2)
                 ship_2--;
@@ -175,10 +175,10 @@ namespace WindowsFormsApplication1
                 label1.Enabled = false;
         }
 
-        void download_image(Label[,] mas, int count_ship, bool fl) // загрузка картинок вертикальное/горизрнтальное отображение
+        void download_image(Label[,] mas, int count_ship, bool fl) //загрузка изображений кораблей для горизонтального и вертикального отображения
         {
             int im = count_ship; //размерность корабля
-            if (fl)// вертикально
+            if (fl)//вертикальное отображение
             {
                 for (int j = y0; j < y0 + count_ship; ++j)
                 {
@@ -200,7 +200,7 @@ namespace WindowsFormsApplication1
                     }
                 }
             }
-            else // горизонтально
+            else //горизонтальное отображение
             {
                 for (int i = x0; i < x0 + count_ship; ++i)
                 {
@@ -223,19 +223,19 @@ namespace WindowsFormsApplication1
             }
         }
 
-        private void label_drag(object sender, DragEventArgs e) // загрузка картинок, задание значения в поле tag
+        private void label_drag(object sender, DragEventArgs e) //загрузка картинок, задание значения в поле tag
         {
-            if (comboBox1.SelectedIndex == 0)// вертикально
+            if (comboBox1.SelectedIndex == 0)//вертикально
             {
-                download_image(user, ship, true);// загрузка картинок
+                download_image(user, ship, true);//загрузка картинок
                 buffer_zone(user, x0 - 1, x0 + 1, y0 - 1, y0 + ship, -1);
                 for (int j = y0; j < y0 + ship; ++j)
                 {
                     user[x0, j].Tag = ship;
                 }
-                visible_ship(); //  кол-во кораблей и их доступность
+                visible_ship(); //количество кораблей и их доступность
             }
-            else // если горизонт.
+            else //горизонтально
             {
                 download_image(user, ship, false);
                 buffer_zone(user, x0 - 1, x0 + ship, y0 - 1, y0 + 1, -1);
@@ -249,7 +249,7 @@ namespace WindowsFormsApplication1
 
         private void my_DragOver(object sender, DragEventArgs e)
         {
-            // поиск места , над какой клеткой находится указатель мыши
+            //поиск места, над какой клеткой находится указатель мыши
             Point loc = location(sender, user);
             x0 = loc.X; y0 = loc.Y;
             if (comboBox1.SelectedIndex == 0)
@@ -259,16 +259,16 @@ namespace WindowsFormsApplication1
                     x = x0; y = y0;
                     vertikal = false;
                 }
-                int k = 0; // кол-во клеток не задействованных 
+                int k = 0; //количество незадействованных клеток
                 if (y0 + ship <= 10 && (int)user[x0, y0].Tag == 0)
                 {
                     for (int j = y0; j < y0 + ship; ++j)
                     {
                         if (Convert.ToInt32(user[x0, j].Tag) == 0) k++;
                     }
-                    if (k == ship) // если место поустое
+                    if (k == ship) //если место, клетка, пустое
                     {
-                        if (x == x0 && y == y0) // если в фокусе другая клетка, чистим предыдущий корабль
+                        if (x == x0 && y == y0) //если в фокусе другая клетка, чистим предыдущий корабль
                         {
                             download_image(user, ship, true);
                             e.Effect = DragDropEffects.Copy;
@@ -305,7 +305,7 @@ namespace WindowsFormsApplication1
                 else
                     e.Effect = DragDropEffects.None;
             }
-            // горизоньально
+            //горизонтально
             ////////////////////////////////////////////////
             else
             {
@@ -314,16 +314,16 @@ namespace WindowsFormsApplication1
                     x = x0; y = y0;
                     vertikal = false;
                 }
-                int k = 0; // кол-во клеток не задействованных 
+                int k = 0; //количество незадействованных клеток
                 if (x0 + ship <= 10 && (int)user[x0, y0].Tag == 0)
                 {
                     for (int i = x0; i < x0 + ship; ++i)
                     {
                         if (Convert.ToInt32(user[i, y0].Tag) == 0) k++;
                     }
-                    if (k == ship) // если место поустое
+                    if (k == ship) //если место пустое
                     {
-                        if (x == x0 && y == y0) // если в фокусе другая клетка, чистим предыдущий корабль
+                        if (x == x0 && y == y0) //если в фокусе другая клетка, чистим предыдущий корабль
                         {
                             download_image(user, ship, false);
                             e.Effect = DragDropEffects.Copy;
@@ -364,10 +364,10 @@ namespace WindowsFormsApplication1
             }
         }
 
-        private Point location(object sender, Label[,] mas) // возращем место, где пользователь кликнул
+        private Point location(object sender, Label[,] mas) //возращем место, где пользователь кликнул
         {
             Point place = new Point();
-            bool click = false; // клик на клекте , поиск места где кликнули
+            bool click = false; //клик на клетку, поиск места, куда кликнули
             for (int j = 0; j < 10; ++j)
             {
                 for (int i = 0; i < 10; ++i)
@@ -384,7 +384,7 @@ namespace WindowsFormsApplication1
             return place;
         }
 
-        void buffer_zone(Label[,] mas, int n0, int n1, int m0, int m1, int value) // задаем значение около кораблей 
+        void buffer_zone(Label[,] mas, int n0, int n1, int m0, int m1, int value) //задаем значение около кораблей 
         {
             for (int j = m0; j <= m1; ++j)
             {
@@ -392,7 +392,7 @@ namespace WindowsFormsApplication1
                 {
                     try
                     {
-                        mas[i, j].Tag = value;//значение в клекте, -1 и -2 может быть
+                        mas[i, j].Tag = value;//значение в клетке, -1 и -2 может быть
                     }
                     catch (IndexOutOfRangeException) { }
                 }
@@ -413,7 +413,7 @@ namespace WindowsFormsApplication1
                 ship = Convert.ToInt32(my.Tag);
                 my.DoDragDrop(my, DragDropEffects.Copy);
                 flag = false;
-                // если курсор вышел за границы поля, чистим клетки
+                //если курсор вышел за границы поля, чистим клетки
                 for (int j = 0; j < 10; ++j)
                 {
                     for (int i = 0; i < 10; ++i)
@@ -429,6 +429,11 @@ namespace WindowsFormsApplication1
         {
             if (e.Button == MouseButtons.Left)
                 flag = false;
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
 
     }

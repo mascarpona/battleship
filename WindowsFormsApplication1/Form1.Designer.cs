@@ -62,7 +62,6 @@
             this.button7.TabIndex = 1;
             this.button7.Text = "STOP";
             this.button7.UseVisualStyleBackColor = false;
-            //this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
             // button4
             // 
@@ -77,7 +76,6 @@
             this.button4.TabIndex = 6;
             this.button4.Text = "START";
             this.button4.UseVisualStyleBackColor = false;
-            //this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // button3
             // 
@@ -91,7 +89,6 @@
             this.button3.TabIndex = 37;
             this.button3.Text = "Clean";
             this.button3.UseVisualStyleBackColor = false;
-            //this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button6
             // 
@@ -117,7 +114,6 @@
             this.button5.TabIndex = 39;
             this.button5.Text = "Random";
             this.button5.UseVisualStyleBackColor = false;
-            //this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // comboBox1
             // 
@@ -208,7 +204,7 @@
             this.checkBox1.TabIndex = 45;
             this.checkBox1.Text = "Zone of Silense";
             this.checkBox1.UseVisualStyleBackColor = false;
-            //this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // label8
             // 
@@ -277,7 +273,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::WindowsFormsApplication1.Properties.Resources.Control0;
+            this.BackgroundImage = global::WindowsFormsApplication1.Properties.Resources.Control01;
             this.ClientSize = new System.Drawing.Size(851, 624);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label5);
