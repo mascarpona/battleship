@@ -24,13 +24,13 @@ namespace WindowsFormsApplication1
         Label[,] user; //игровое поле пользователя 
         Label[] resp1, numb1, resp2, numb2; //массивы букв и цифр 
         char[] c = new char[] { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J' };
-        bool flag = false; //проверка на зажатие кнопки мыши 
+        bool flag = false; //проверка на зажатие кнопки мышью
         static int ship; //размерность корабля 
         int ship_4 = 1; //количество четырехпалубных кораблей 
         int ship_3 = 2; //количество трехпалубных кораблей 
         int ship_2 = 3; //количество двухпалубных кораблей 
         int ship_1 = 4; //количество однопалубных кораблей 
-        int x0, y0; //координаты места, куда навели мышью на поле пользователя 
+        int x0, y0; //координаты места, куда навели мышь на поле пользователя 
         static int x, y; //координаты предыдущего места корабля, чтобы его можно было стереть 
         static bool vertikal = true;
         int count_k = 0; //количество убитых кораблей пользователем 
@@ -40,7 +40,7 @@ namespace WindowsFormsApplication1
         int a_ = 0, b_ = 0; //координаты прострела 
         bool exists = true; //задавать новые координаты для прострела, или стрелять по старым т.к. там подбит корабль 
         bool vert = true, horizont = true; //размещение корабля при прострелке компьютера 
-        //для трехпалубного корабля проверяем возможно ли корабль был подбит до этого 
+        //для трехпалубного корабля проверяем возможность ли корабля быть подбитым до этого 
         bool horiz_3_left = true;
         bool horiz_3_rigth = true;
         bool vertic_3_vverh = true;
@@ -54,7 +54,7 @@ namespace WindowsFormsApplication1
         bool vert_4_2_down = true; //стреляем вниз 
         bool vert_4_1_down = true; //стреляем вниз 
         bool ranen = true; //выдача сообщения о ранении 
-        int time = 30; //задержка стрельбы компа 
+        int time = 30; //задержка стрельбы компьтера
 
         public Form1()
         {
@@ -122,7 +122,7 @@ namespace WindowsFormsApplication1
             }
         }
 
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e) //разворачиваем корабли, грузим изображения 
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e) //разворачиваем корабли и загружаем изображение
         {
             if (comboBox1.SelectedIndex == 0)
             {
@@ -212,9 +212,9 @@ namespace WindowsFormsApplication1
                 flag = false;
         }
 
-        void visible_ship() // досутпность и корл-во кораблей 
+        void visible_ship() // досутпность и количество кораблей 
         {
-            if (ship == 3)// кол-во кораблей 3 - х парсных 
+            if (ship == 3)// количество кораблей трехпалубных кораблей
                 ship_3--;
             if (ship == 2)
                 ship_2--;
@@ -281,7 +281,7 @@ namespace WindowsFormsApplication1
             }
         }
 
-        private void label_drag(object sender, DragEventArgs e) // загрузка картинок, задание значения в поле tag 
+        private void label_drag(object sender, DragEventArgs e) // загрузка картинок, заданием значение в поле tag 
         {
             if (comboBox1.SelectedIndex == 0)// вертикально 
             {
@@ -291,9 +291,9 @@ namespace WindowsFormsApplication1
                 {
                     user[x0, j].Tag = ship;
                 }
-                visible_ship(); // кол-во кораблей и их доступность 
+                visible_ship(); // количество кораблей и их доступность 
             }
-            else // если горизонт. 
+            else // если горизонтально
             {
                 download_image(user, ship, false);
                 buffer_zone(user, x0 - 1, x0 + ship, y0 - 1, y0 + 1, -1);
@@ -317,14 +317,14 @@ namespace WindowsFormsApplication1
                     x = x0; y = y0;
                     vertikal = false;
                 }
-                int k = 0; // кол-во клеток не задействованных 
+                int k = 0; // количество незадействованных клеток
                 if (y0 + ship <= 10 && (int)user[x0, y0].Tag == 0)
                 {
                     for (int j = y0; j < y0 + ship; ++j)
                     {
                         if (Convert.ToInt32(user[x0, j].Tag) == 0) k++;
                     }
-                    if (k == ship) // если место поустое 
+                    if (k == ship) // если место пустое
                     {
                         if (x == x0 && y == y0) // если в фокусе другая клетка, чистим предыдущий корабль 
                         {
@@ -363,7 +363,7 @@ namespace WindowsFormsApplication1
                 else
                     e.Effect = DragDropEffects.None;
             }
-            // горизоньально 
+            //горизонтально
             //////////////////////////////////////////////// 
             else
             {
@@ -372,16 +372,16 @@ namespace WindowsFormsApplication1
                     x = x0; y = y0;
                     vertikal = false;
                 }
-                int k = 0; // кол-во клеток не задействованных 
+                int k = 0; //количество , незадействованных клеток
                 if (x0 + ship <= 10 && (int)user[x0, y0].Tag == 0)
                 {
                     for (int i = x0; i < x0 + ship; ++i)
                     {
                         if (Convert.ToInt32(user[i, y0].Tag) == 0) k++;
                     }
-                    if (k == ship) // если место поустое 
+                    if (k == ship) //если место пустое
                     {
-                        if (x == x0 && y == y0) // если в фокусе другая клетка, чистим предыдущий корабль 
+                        if (x == x0 && y == y0) //если в фокусе другая клетка, чистим предыдущий корабль 
                         {
                             download_image(user, ship, false);
                             e.Effect = DragDropEffects.Copy;
@@ -423,10 +423,10 @@ namespace WindowsFormsApplication1
         }
 
         private Point location(object
-        sender, Label[,] mas) // возращем место, где пользователь кликнул 
+        sender, Label[,] mas) //возращем место, где пользователь кликнул 
         {
             Point place = new Point();
-            bool click = false; // клик на клекте , поиск места где кликнули 
+            bool click = false; //клик на клетке, поиск места где кликнули 
             for (int j = 0; j < 10; ++j)
             {
                 for (int i = 0; i < 10; ++i)
@@ -443,7 +443,7 @@ namespace WindowsFormsApplication1
             return place;
         }
 
-        void buffer_zone(Label[,] mas, int n0, int n1, int m0, int m1, int value) // задаем значение около кораблей 
+        void buffer_zone(Label[,] mas, int n0, int n1, int m0, int m1, int value) //задаем значение около кораблей 
         {
             for (int j = m0; j <= m1; ++j)
             {
@@ -451,25 +451,25 @@ namespace WindowsFormsApplication1
                 {
                     try
                     {
-                        mas[i, j].Tag = value;//значение в клекте, -1 и -2 может быть 
+                        mas[i, j].Tag = value;//значение в клетке, -1 и -2 может быть 
                     }
                     catch (IndexOutOfRangeException) { }
                 }
             }
         }
 
-        private void generate(Label[,] mas, bool visible) // генерирование расположения кораблей/ bool visible грузить ли картинки т.к. для поля противника мне не грузим кораблики 
+        private void generate(Label[,] mas, bool visible) //генерирование расположения кораблей/ bool visible грузить ли картинки т.к. для поля противника мы не грузим кораблики 
         {
             int position = 0;
             int[] count_ship = new int[] { 4, 3, 3, 2, 2, 2, 1, 1, 1, 1 };
             Random r = new Random();
             while (true)
             {
-                int random; // вертикально или горизрнтально 
+                int random; //вертикально или горизонтально 
             loop: x0 = r.Next(0, 10);
                 y0 = r.Next(0, 10);
                 random = r.Next(0, 2);
-                int k = 0; // кол-во не занятых клеток должно равняться размерности кораблика 
+                int k = 0; //количество незанятых клеток должно равняться размерности кораблика 
                 if (random == 1)
                 {
                     if (y0 + count_ship[position] <= 10 && (int)mas[x0, y0].Tag == 0)
@@ -507,7 +507,7 @@ namespace WindowsFormsApplication1
                     else
                         goto loop;
                 }
-                ///// горизонтально размещаем корабли 
+                /////горизонтально размещаем корабли 
                 else
                 {
                     if (x0 + count_ship[position] <= 10 && (int)mas[x0, y0].Tag == 0)
@@ -546,7 +546,7 @@ namespace WindowsFormsApplication1
             }
         }
 
-        void Clear() // очитска полей, задание начальных значений 
+        void Clear() //очестка полей, задание начальных значений 
         {
             for (int j = 0; j < 10; ++j)
             {
@@ -577,9 +577,9 @@ namespace WindowsFormsApplication1
             button5.Enabled = false;
             button6.Enabled = false;
             button7.Enabled = true;
-            shoot_user = true; // игрок может стрелять 
+            shoot_user = true; //игрок может стрелять 
             label6.Text = "Ready";
-            Clear(); // чистим поля 
+            Clear(); //чистим поля 
             comboBox1.Enabled = false;
             label1.Enabled = false;
             label2.Enabled = false;
@@ -605,7 +605,7 @@ namespace WindowsFormsApplication1
             {
                 button3.Enabled = false;
                 button4.Enabled = false;
-                shoot_user = true; // игрок может стрелять 
+                shoot_user = true; //игрок может стрелять 
                 label6.Text = "Enemy's zone";
                 label7.Visible = true;
                 label1.Enabled = false;
@@ -631,7 +631,7 @@ namespace WindowsFormsApplication1
             button4.Enabled = false;
             button5.Enabled = true;
             button6.Enabled = true;
-            Clear(); // чистим поля, задаем значения 
+            Clear(); //чистим поля, задаем значения 
             label7.Visible = false;
             comboBox1.Enabled = false;
             label1.Enabled = false;
@@ -641,7 +641,7 @@ namespace WindowsFormsApplication1
             button3.Enabled = false;
         }
 
-        private void button3_Click(object sender, EventArgs e)// пользователь чистит поле, корабли снова доступны 
+        private void button3_Click(object sender, EventArgs e)//пользователь чистит поле, корабли снова доступны 
         {
             for (int j = 0; j < 10; ++j)
             {
@@ -661,7 +661,7 @@ namespace WindowsFormsApplication1
             label4.Enabled = true;
         }
 
-        void hit_bloomer(Label[,] mas, int a, int b, bool fl) // загружаем картинку, попал/промах 
+        void hit_bloomer(Label[,] mas, int a, int b, bool fl) //загружаем картинку, попал/промах 
         {
             if (fl)
                 mas[a, b].Image = Image.FromFile(Application.StartupPath + @"\..\..\Resources\" + "попал.png");
@@ -669,7 +669,7 @@ namespace WindowsFormsApplication1
                 mas[a, b].Image = Image.FromFile(Application.StartupPath + @"\..\..\Resources\" + "промах.png");
         }
 
-        bool check(Label[,] mas, int tg)// убит или ранен корабль:4,3,-3 
+        bool check(Label[,] mas, int tg)//убит или ранен корабль:4,3,-3 
         {
             bool bl = false;
             for (int j = 0; j < 10; ++j)
@@ -689,7 +689,7 @@ namespace WindowsFormsApplication1
 
         private void click_komp(object sender, MouseEventArgs e)
         {
-            Point click = location(sender, computer);// координаты клика пользовтеля 
+            Point click = location(sender, computer);//координаты клика пользовтеля 
             if (checkBox1.Checked)
             {
                 if ((int)computer[click.X, click.Y].Tag != 5)
@@ -851,7 +851,7 @@ namespace WindowsFormsApplication1
                             label7.Text = "Missed";
                             System.Threading.Thread.Sleep(300);
                             label7.Text = "Enemy's turn";
-                            timer1.Start(); // старт таймера, стреляет комп 
+                            timer1.Start(); //старт таймера, стреляет компьютер
                             break;
                         case 0: goto case -1;
                         case 5:
@@ -867,8 +867,8 @@ namespace WindowsFormsApplication1
         int shoot(int n, int m)
         {
             int num = -1;
-            // 0 есть корабль 
-            //-1 нету промах 
+            //0 есть корабль 
+            //-1 нет промаха
             // 1- заново стреляем 
             switch ((int)user[n, m].Tag)
             {
@@ -877,7 +877,7 @@ namespace WindowsFormsApplication1
                     hit_bloomer(user, n, m, true);
                     buffer_zone(user, n - 1, n + 1, m - 1, m + 1, -2);
                     user[n, m].Tag = 5;
-                    return num = 1; // стреляем заново 
+                    return num = 1; //стреляем заново 
                 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
                 case 2:
                     hit_bloomer(user, n, m, true);
@@ -971,7 +971,7 @@ namespace WindowsFormsApplication1
                     break;
                 //////////////////////////////////////////////////////////////////////////////////////////////////// 
                 case 3:
-                    // стреляем по 3-х палубном в лево 
+                    //стреляем по трехпалубному кораблю влево 
                     hit_bloomer(user, n, m, true);
 
                 loop:
@@ -1034,7 +1034,7 @@ namespace WindowsFormsApplication1
                                             }
                                         }
                                         else
-                                            goto loop; //если вверх низь стрельнуть, заново заходим 
+                                            goto loop; //если вверх внизь стрельнуть, заново заходим 
                                     }
                                 }
                                 else
@@ -1046,7 +1046,7 @@ namespace WindowsFormsApplication1
                             }
                         }
                     }
-                    ///////////////////////////// //// стреляем вправо 
+                    ///////////////////////////// ////стреляем вправо 
                     if (horizont)
                     {
                         if (n <= 8)
@@ -1059,7 +1059,7 @@ namespace WindowsFormsApplication1
                                     vert = false;
                                     hit_bloomer(user, n + 1, m, true);
                                     label7.Text = "Wounded";
-                                    if (n >= 1 && horiz_3_rigth) // проверяем возможно уже две палубы подбиты 
+                                    if (n >= 1 && horiz_3_rigth) //проверяем, возможно, уже две палубы подбиты 
                                     {
                                         if ((int)user[n - 1, m].Tag == 5)
                                         {
@@ -1113,7 +1113,7 @@ namespace WindowsFormsApplication1
                             }
                         }
                     }
-                    //////////////////////// стреляем вверх 
+                    ////////////////////////стреляем вверх 
                     if (vert)
                     {
                         if (m >= 1)
@@ -1180,7 +1180,7 @@ namespace WindowsFormsApplication1
                         }
                     }
                     ///////////////////////////////////////////////////////////////////////////////// 
-                    // стреляем вниз 
+                    //стреляем вниз 
                     if (vert)
                     {
                         if (m <= 8)
@@ -1192,7 +1192,7 @@ namespace WindowsFormsApplication1
                                     horizont = false;
                                     hit_bloomer(user, n, m + 1, true);
                                     label7.Text = "Wounded";
-                                    if (m >= 1 && vertic_3_vniz) // провереям возможно уже убили 3 х парусный 
+                                    if (m >= 1 && vertic_3_vniz) //провереям, возможно, уже убили трехпалубный 
                                     {
                                         if ((int)user[n, m - 1].Tag == 5)
                                         {
@@ -1204,7 +1204,7 @@ namespace WindowsFormsApplication1
                                             vertic_3_vniz = true;
                                             return num = 1;
                                         }
-                                        else // если там пусто , идем дальше 
+                                        else //если там пусто, идем дальше 
                                         {
                                             vertic_3_vniz = false;
                                             goto loop;
@@ -1247,7 +1247,7 @@ namespace WindowsFormsApplication1
                         }
                     }
                     break;
-                case 4: // 4 палубы 
+                case 4: //четыре палубы
                     hit_bloomer(user, n, m, true);
                     if (ranen)
                     {
@@ -1255,7 +1255,7 @@ namespace WindowsFormsApplication1
                         ranen = false;
                     }
                 loop4:
-                    if (horizont) // горизонтльно стреляем влево от ранее попавшего 
+                    if (horizont) //горизонтально стреляем влево от ранее попавшего 
                     {
                         if (n >= 1)
                         {
@@ -1266,7 +1266,7 @@ namespace WindowsFormsApplication1
                                     vert = false;
                                     hit_bloomer(user, n - 1, m, true);
                                     label7.Text = "Wounded";
-                                    // проверяем, возможно уже подбит корабль с другой стороны, если да, задаем таг, возращаем значение 
+                                    //проверяем, возможно уже подбит корабль с другой стороны, если да, задаем таг, возращаем значение 
                                     if (n <= 7 && horizont_4_2_left)
                                     {
                                         if ((int)user[n + 1, m].Tag == 5 && (int)user[n + 2, m].Tag == 5)
@@ -1370,8 +1370,8 @@ namespace WindowsFormsApplication1
                         }
                     }
 
-                    //////////////////////// стреляем вправо 
-                    if (horizont) // горизонтльно стреляем влево от ранее попавшего 
+                    ////////////////////////стреляем вправо 
+                    if (horizont) //горизонтльно стреляем влево от ранее попавшего 
                     {
                         if (n <= 8)
                         {
@@ -1382,7 +1382,7 @@ namespace WindowsFormsApplication1
                                     vert = false;
                                     hit_bloomer(user, n + 1, m, true);
                                     label7.Text = "Wounded";
-                                    // проверяем, возможно уже подбит корабль с другой стороны, если да, задаем таг, возращаем значение 
+                                    //проверяем, возможно уже подбит корабль с другой стороны, если да, задаем таг, возращаем значение 
                                     if (n >= 2 && horizont_4_2_rigth)
                                     {
                                         if ((int)user[n - 1, m].Tag == 5 && (int)user[n - 2, m].Tag == 5)
@@ -1486,8 +1486,8 @@ namespace WindowsFormsApplication1
                         }
                     }
 
-                    /////////////////// стреляем вврех 
-                    if (vert) // горизонтльно стреляем влево от ранее попавшего 
+                    ///////////////////стреляем вврех 
+                    if (vert) //горизонтльно стреляем влево от ранее попавшего 
                     {
                         if (m >= 1)
                         {
@@ -1498,7 +1498,7 @@ namespace WindowsFormsApplication1
                                     horizont = false;
                                     hit_bloomer(user, n, m - 1, true);
                                     label7.Text = "Wounded";
-                                    // проверяем, возможно уже подбит корабль с другой стороны, если да, задаем таг, возращаем значение 
+                                    //проверяем, возможно уже подбит корабль с другой стороны, если да, задаем таг, возращаем значение 
                                     if (m <= 7 && vert_4_2_up)
                                     {
                                         if ((int)user[n, m + 1].Tag == 5 && (int)user[n, m + 2].Tag == 5)
@@ -1602,7 +1602,7 @@ namespace WindowsFormsApplication1
                         }
                     }
                     ///////////////////////////////////////стреляем вниз 
-                    if (vert) // горизонтльно стреляем влево от ранее попавшего 
+                    if (vert) //горизонтльно стреляем влево от ранее попавшего 
                     {
                         if (m <= 8)
                         {
@@ -1614,7 +1614,7 @@ namespace WindowsFormsApplication1
                                     horizont = false;
                                     hit_bloomer(user, n, m + 1, true);
                                     label7.Text = "Wounded";
-                                    // проверяем, возможно уже подбит корабль с другой стороны, если да, задаем таг, возращаем значение 
+                                    //проверяем, возможно уже подбит корабль с другой стороны, если да, задаем таг, возращаем значение 
                                     if (m >= 2 && vert_4_2_down)
                                     {
                                         if ((int)user[n, m - 1].Tag == 5 && (int)user[n, m - 2].Tag == 5)
@@ -1849,7 +1849,7 @@ namespace WindowsFormsApplication1
             }
         }
 
-        void func(int i_, int j_) // задание тага -5, место около корабля, используется в checkBox1_CheckedChanged( 
+        void func(int i_, int j_) //задание тага -5, место около корабля, используется в checkBox1_CheckedChanged( 
         {
             try
             {
@@ -1858,9 +1858,9 @@ namespace WindowsFormsApplication1
             catch (IndexOutOfRangeException) { }
         }
 
-        private void checkBox1_CheckedChanged(object sender, EventArgs e) // ищем корабли и окло кораблей пользоватедб расставляет метки 
+        private void checkBox1_CheckedChanged(object sender, EventArgs e) //ищем корабли и около кораблей пользователь расставляет метки 
         {
-            if (!checkBox1.Checked) // разрешаем доступность поля компьютера 
+            if (!checkBox1.Checked) //разрешаем доступность поля компьютера 
             {
                 label7.Text = "Your turn";
                 for (int j = 0; j < 10; ++j)
@@ -1873,7 +1873,7 @@ namespace WindowsFormsApplication1
             }
             else
             {
-                // проверяем, возможно ли есть еще раненный корабль 
+                //проверяем, возможно ли есть еще раненный корабль 
                 int k_2 = 0;
                 int k_3 = 0;
                 int _k3 = 0;
@@ -1904,7 +1904,7 @@ namespace WindowsFormsApplication1
                     return;
                 }
 
-                // если нету, отмечаем зону 
+                //если нет, отмечаем зону 
                 bool h = false;
                 bool v = false;
                 for (int j = 0; j < 10; ++j)
